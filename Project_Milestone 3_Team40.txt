@@ -1,0 +1,159 @@
+﻿Milestone 3
+
+
+1. Queries
+A)This query returns the top 10 books of highest rating over all years.
+WITH ratings As (
+    SELECT DISTINCT ISBN, AVG(book_rating) AS rating
+    FROM rating 
+    GROUP BY ISBN
+)
+SELECT b.book_title, b.book_author, b.image_url_l, ratings.rating
+FROM books b JOIN ratings ON b.ISBN = ratings.ISBN
+ORDER BY ratings.rating DESC
+LIMIT 10
+
+
+B)Return a list of highest rated books per decade, order by decade descendingly  (When preprocessing the data, we will get the column “decade” as a new attribute from the column “year_of_publication”.)
+WITH ISBN_rating AS (
+    SELECT DISTINCT ISBN, AVG(book_rating) AS book_rating
+    FROM rating 
+    GROUP BY ISBN
+)
+, book_rating As (
+    SELECT b.ISBN, b.book_title, b.book_author, b.image_url_l, b.decade,  r.book_rating
+    FROM books b JOIN ISBN_rating r ON b.ISBN = r.ISBN
+)
+, decade_rating As (
+    SELECT DISTINCT b.decade, MAX(r.book_rating) AS rating
+    FROM books b JOIN ISBN_rating r ON b.ISBN = r.ISBN
+    GROUP BY b.decade
+)
+SELECT b.book_title, b.book_author, b.image_url_l, b.decade, r.rating
+FROM book_rating b JOIN decade_rating r ON b.decade = r.decade AND b.rating = r.rating
+ORDER BY b.decade DESC
+
+
+
+
+C)Search a book by title
+SELECT b.book_title, b.book_author, b.image_url_l
+FROM books b 
+WHERE b.book_title LIKE ‘%${inputTitle}%’
+
+
+D)Search a book by author, returns all books of the author
+SELECT b.book_title, b.book_author, b.image_url_l
+FROM books b 
+WHERE b.book_author LIKE ‘%${inputAuthor}%’
+
+
+E)Search a book by year range 
+SELECT b.book_title, b.book_author, b.image_url_l
+FROM books b 
+WHERE b.year_of_publication >= ‘${inputLower}’ AND b.year_of_publication <= ‘${inputUpper}’ 
+
+
+
+
+F)Search a book by publisher, returns all books of the publisher
+SELECT b.book_title, b.book_author, b.image_url_l
+FROM books b 
+WHERE b.publisher LIKE ‘%${inputPublisher}%’
+
+
+G)Detailed information of book: 
+1. when you click on the cover of the book, a detailed description of the book will pop up, which includes title, author, publisher, rating
+          WITH ISBN_rating AS (
+                                    SELECT DISTINCT ISBN, AVG(book_rating) AS book_rating
+                                    FROM rating 
+                                    GROUP BY ISBN
+)
+                                SELECT b.book_title, b.book_author, b.publisher,                                   
+b.year_of_publication, r.book_rating 
+FROM books b JOIN ISBN_rating r ON b.ISBN = r.ISBN
+WHERE b.image_url_l  LIKE ‘%${inputImage}%’
+
+
+2. Get other books written by the same author of current search book 
+        WITH search_book AS(
+                SELECT  b.book_author
+FROM books b 
+WHERE b.image_url_l  LIKE ‘%${inputImage}%’
+         )
+         SELECT b.book_title, b.book_author, b.image_url_l
+         FROM books b NATURAL JOIN search_book sb
+
+
+H)    When new users sign up, they will be added into the User table.(Before inserting, we will check if this user_name exist in User)
+        
+        IF ((SELECT count(*) FROM user 
+     WHERE user.username = ‘${inputUserName}’) = 0)
+BEGIN
+        INSERT INTO user(username, location, age, email, password)
+        VALUES(‘${inputUserName}’,‘${inputLocation}’,
+    ‘${inputAge}’,‘${inputEmail}’, ‘${inputPassword}’)
+END        
+
+
+I)  Users can add a new book to bookshelf of themselves
+IF ((SELECT count(*) FROM bookshelf 
+      WHERE bookshelf.ISBN = ‘${inputISBN}’
+      AND bookshelf.username = ‘${inputUserName}’) = 0)
+        BEGIN
+        INSERT INTO bookshelf(username, ISBN)
+        VALUES(‘${inputUserName}’,‘${inputISBN}’)
+        END
+
+
+J) When users rate a book, adding rating into the rating table
+        INSERT INTO rating(username, ISBN, rating)
+        VALUES(‘${inputUserName}’, ‘${inputISBN}’, ‘${inputRating}’)
+
+
+
+
+K)Recommendation based on the user’s bookshelf: 
+
+
+//get overlap books count with current user
+WITH overlap AS(
+SELECT username, count(ISBN) AS count
+FROM bookshelf
+WHERE ISBN IN(
+SELECT ISBN 
+FROM bookshelf
+WHERE username = ‘${inputUserName}’)
+AND username <> ‘${inputUserName}’
+GROUP BY username),
+
+
+//return similar user name
+similar_user AS(
+SELECT username
+FROM overlap 
+ORDER BY count DESC
+LIMIT 10),
+
+
+//select ISBN that are not in current user’s bookshelf from similar user’s bookshelf
+rec_ISBN AS (
+SELECT b.ISBN 
+FROM bookshelf b JOIN similar_user s ON b.username = s.username
+WHERE b.book_title NOT IN(
+SELECT book_title 
+FROM bookshelf 
+WHERE username = ‘${inputUserName}’)
+),
+//final recommendation
+SELECT  b.book_title, b.book_author, b.image_url_l
+FROM books b JOIN rec_ISBN r ON b.ISBN = r.ISBN
+
+
+
+
+2. Credentials 
+
+
+Username: Group40
+Password: Project2020
