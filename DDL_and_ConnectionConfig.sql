@@ -2,6 +2,7 @@
 --prot: 3306 (default)
 --user name: Group40
 --password: refer the chat history
+--db name: aws_db
 
 SHOW DATABASES;
 use aws_db;
