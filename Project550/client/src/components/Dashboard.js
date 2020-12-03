@@ -84,6 +84,7 @@ class Dashboard extends React.Component {
             <h2 className="search-title text-white">Search</h2>
             <div className="input-group mb-5">
               <input
+              id="search11"
                 type="text"
                 className="form-control"
                 placeholder="Enter title, author, publisher,..."

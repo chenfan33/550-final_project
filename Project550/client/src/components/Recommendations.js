@@ -8,8 +8,8 @@ export default class Recommendations extends React.Component {
   constructor(props) {
     super(props);
 this.state={
-	books:[],
-	username :"maa"
+  books:[],
+  username :"mia"
 }
 
 // The state maintained by this React Component. This component maintains the list of genres,
@@ -32,43 +32,45 @@ this.state={
           books: res
         })
       })
-      .catch(err => console.log(err))	// Print the error if there is one.
+      .catch(err => console.log(err)) // Print the error if there is one.
   }
 
 
 
 render() {    
 return(
-	      <div className="Recommendation">
+        <div className="Recommendation">
         <PageNavbar active="recommendation" />
    <br></br>
 
-                  <div className="list-wrap">
+
+
+                <div className="list-wrap">
             <div className="list pr-1">
-              <div className="list-box opacity=0.4 bg-white px-3 pt-3">
+              <div className="list-box px-3 pt-3"  id="rec" >
                 <h5 className="list-title mb-3">≡ Recommendations</h5>
+
+<div className="row row-cols-1 row-cols-md-3" id="rec2">
 
               
                   {this.state.books.map((element, index) => {
                     return (
-                      <div className="list-row pt-2" key={index}>
-                        <div className="list-col cover-col">
-                          < img className="cover" src={element.image_url_l} />
-                        </div>
-                        <div className="list-col content-col">
-                          <h5>{element.title}</h5>
-                          <p className="text-black-50">{element.author}</p >
-                        </div>
-                        <div className="list-col rating-col">
-                          < img src={StarIcon} />
-                          <h5>{element.rating}</h5>
-                        </div>
-                      </div>
+                  <div className="col mb-4" key={index}>
+                      <div className="card h-100">
+
+                          <img className="card-img-top" src={element.image_url_l} />
+
+                    <div className="card-body">
+                          <h7 className="card-title">{element.title}</h7>
+                          <p className="card-text">{element.author}</p>
+                        </div></div></div>
+
                     );
                   })}
                 </div>
-              </div></div></div>
+              </div></div></div></div>
 );
+
 
   }
 }
