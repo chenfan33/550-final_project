@@ -1,0 +1,153 @@
+#starIcon {
+    width: 20px;
+    height: 20px;
+    margin-right:5px;
+    margin-left: 15px;
+  }
+
+button {
+    cursor: pointer;
+}
+
+.list-wrap1 {
+  display: flex;
+}
+.list1 {
+  flex: 1;
+  width: 50%;
+}
+
+
+.list1 #sub {
+  border-radius: 5px;
+  position: relative;
+  height: 100%;
+  background: hsla(0, 0%, 100%, .5);
+  -webkit-backdrop-filter: blur(20px);    
+  backdrop-filter: blur(20px);   
+}
+
+.list-row1 .list-col1.cover-col {
+  width: 230px;
+  min-height: 1px;
+  margin-left: 10px;
+}
+#card{
+  height: 400px;
+  display: flex;
+}
+.list-row1 {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.cover1 {
+  width: 230px;
+}
+
+
+.list-row1 .list-col1.content-col1 {
+  min-height: 24px;
+  margin-left: 40px;
+  flex: 1;
+  justify-content: center;
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.list-row1 .list-col1.content-col1 p {
+  min-height: 24px;
+  white-space:pre-wrap;
+  word-wrap:break-word;
+  word-break: break-all;
+  font-size:18px;
+}
+
+.list-row1 .list-col1.author-col1 {
+  display: flex;
+  flex-direction: column;
+}
+
+.list-row1 .list-col1.rating-col1 {
+  display: inline-flex;
+}
+
+.list-col1.rating-col1 p {
+  width: 300px;
+  height: 20px;
+}
+
+.list-col1.rating-col1 #star {
+  width: 20px;
+  height: 20px;
+  margin-left: 20px;
+}
+
+.list-col1.rating-col1 h6 {
+  margin-left: 2px;
+}
+
+.list-col1 #rateBook {
+  margin: 10px;
+}
+
+#markbook{
+  background-color: ;
+}
+
+.list-row1 .list-col1.rating-col2 {
+  margin-top: 1px;
+  display: inline-flex;
+}
+
+
+.list-col1.rating-col2 #cart {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  margin-top: 1px;
+}
+
+.list-row1 .list-col1.rating-col3 {
+  margin-top: 1.5px;
+  display: inline-flex;
+}
+
+.list-col1.rating-col3 #bookmark {
+  width: 18px;
+  height: 18px;
+  margin-left: 1px;
+  margin-right: 5px;
+  margin-top: 1px;
+}
+
+.list-col1.rating-col3 #button-markBook {
+  margin-left: -11px;
+  height: 20px;
+  text-align: left;
+  display: inline-flex;
+  align-items: center; 
+  font-size: 15.5px;
+  line-height: 22px;
+  text-decoration:underline;
+  color: #666565;
+}
+
+.list-col1 #rateBook {
+  margin-top: 30px;
+  margin-left: 200px;
+  display: inline-flex;
+}
+
+.list-col1 #rateBook p {
+  margin: 0
+}
+
+.list-col1.rating-col2 #outlink {
+  color: #666565;
+  text-decoration:underline;
+}
+
+#rateBook p{
+  font-size: 16px;
+}

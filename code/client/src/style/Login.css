@@ -1,0 +1,55 @@
+.small-middle-container{
+    margin: auto;
+    width: 20%;
+}
+
+.search {
+    width: 300px;
+    margin: 0 auto;
+  }
+
+#logo {
+    height:300px;
+    width:300px;
+    display: table-cell; 
+    vertical-align: middle;
+    text-align: center;
+ }
+ #login{
+    margin-top: 10px;
+    vertical-align: middle;
+ }
+ 
+ #logout {
+align-items: center; 
+line-height: 22px;
+text-decoration:underline;
+color: #ffffff;
+}
+ #btn{
+    width: 100%;
+
+ }
+ #img { 
+   width:100%;
+ }
+.info{
+
+    color: white;
+    font-size: 30px;
+    text-align: center;
+    font-weight: normal;
+    text-shadow: -1px -1px 1px #aaa,
+             0px 4px 1px rgba(0,0,0,0.5),
+             4px 4px 5px rgba(0,0,0,0.7),
+             0px 0px 7px rgba(0,0,0,0.4);
+}
+
+.btn-group { 
+    width: 100%; 
+} 
+
+.btn-group .btn { 
+    width: 100%; 
+    margin: px
+} 
